@@ -50,12 +50,20 @@ namespace TasklistAPI.Controllers
             return Ok(task);
         }
 
+        [HttpPost("Duplicate/{id}")]
+        public ActionResult Duplicate(int id)
+        {
+            _taskRepository.Duplicate(id);
+            return Ok();
+        }
+
 
 
         // GET: TaskController/Edit/5
         [HttpPut]
         public ActionResult Edit([FromBody]TaskModel task)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             _taskRepository.Update(task);
             return Ok(task);
         }
@@ -70,12 +78,7 @@ namespace TasklistAPI.Controllers
             return Ok();
         }
 
-        [HttpPost("Duplicate/{id}")]
-        public ActionResult Duplicate(int id)
-        {
-            _taskRepository.Duplicate(id);
-            return Ok();
-        }
+
 
     }
 }
