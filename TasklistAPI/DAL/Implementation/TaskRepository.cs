@@ -18,17 +18,14 @@ namespace TasklistAPI.DAL.Implementation
         }
         public async Task<TaskModel> Create(TaskModel task)
         {
-            if (task.Task?.Length > 0)
-            {
+
                 task.EntryDate = DateTime.Now;
                 task.IsCompleted = false;
                 task.Task = $"000 - {task.Task}";
                 await _tasklistContext.TableTasksLists.AddAsync(task);
                 await _tasklistContext.SaveChangesAsync();
                 return task;
-            }
 
-            return task;
         }
 
         public async Task<string> Delete(IEnumerable<int> list)
